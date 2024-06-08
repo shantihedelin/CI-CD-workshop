@@ -3,10 +3,24 @@ import { render, screen } from "@testing-library/react";
 import Account from "@/app/account/page";
 
 describe("Account", () => {
-    it('renders "Current balance:" when logged in', () => {
-        render(<Account />);
+  beforeEach(() => {
+    localStorage.clear();
+  });
 
-        const currBalance = screen.getByText('Current balance');
-        expect(currBalance).toBeInTheDocument();
-    });
+  it("prompts the user to log in if not logged in", () => {
+    render(<Account />);
+    expect(
+      screen.getByText("Du behöver logga in för att få åtkomst till kontouppgifter.")
+    ).toBeInTheDocument();
+    expect(screen.getByText("Sign in")).toBeInTheDocument();
+  });
+
+  it("shows the balance when logged in", async () => {
+    localStorage.setItem("token", "mock-token");
+    localStorage.setItem("loggedInUser", "mock-user");
+
+    render(<Account />);
+
+    expect(await screen.findByText("Current balance:")).toBeInTheDocument();
+  });
 });
