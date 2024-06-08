@@ -7,7 +7,7 @@ describe("Nav", () => {
       render(<Nav />);
       const bankName = screen.getAllByText("Nova Bank");
       
-      expect(bankNames.length).toBeGreaterThan(0);
+      expect(bankName.length).toBeGreaterThan(0);
     });
 
 });
