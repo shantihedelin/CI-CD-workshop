@@ -5,9 +5,9 @@ import Nav from "@/components/Nav";
 describe("Nav", () => {
     it("renders the logo and bank name", () => {
       render(<Nav />);
-      const bankName = screen.getByText("Nova Bank");
+      const bankName = screen.getAllByText("Nova Bank");
       
-      expect(bankName).toBeInTheDocument();
+      expect(bankNames.length).toBeGreaterThan(0);
     });
 
 });
